@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model box</title>
+
+    <style>
+        body {
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 400px;
+            margin: 40px auto;
+        }
+
+        .backdrop {
+            position: absolute;
+            background-color: rgb(31, 28, 24);
+            opacity: 0.8;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+
+        }
+
+        .model {
+            position: absolute;
+            top: 15%;
+            left: 30%;
+            width: 40%;
+            height: 250px;
+            background-color: #333;
+            display: none;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 20px;
+        }
+
+
+
+        .model span {
+            color: red;
+            cursor: pointer;
+            float: right;
+            padding: 5px;
+            border: 1px solid transparent;
+            border-radius: 3px;
+
+        }
+
+        .model span:hover {
+            color: red;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Model box</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae possimus fuga perferendis, deleniti aliquam
+        nostrum assumenda repudiandae voluptate iure architecto ab aliquid atque quam velit laboriosam labore, quasi
+        non error!
+    </p>
+    <button class="btn">Click Here</button>
+
+    <div class="backdrop"></div>
+    <div class="model">
+        <h2>
+            Model box
+            <span class="close_btn">&times;</span>
+        </h2>
+
+    </div>
+    <script>
+        let btn = document.querySelector('.btn');
+        let backdrop = document.querySelector('.backdrop');
+        let close_btn = document.querySelector(".close_btn");
+        let model = document.querySelector(".model");
+
+
+        function show() {
+            console.log("Show function");
+            backdrop.style.display = "block";
+            model.style.display = "block";
+        }
+        function hide() {
+            console.log("Hide function");
+            backdrop.style.display = "none";
+            model.style.display = "none";
+        }
+
+        btn.addEventListener('click', show);
+        backdrop.addEventListener('click', hide);
+        close_btn.addEventListener('click', hide);
+
+    </script>
+</body>
+
+</html>

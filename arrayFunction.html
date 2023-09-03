@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Function</title>
+</head>
+
+<body>
+    <script>
+        const data = [
+            { name: "Sam", age: 12 },
+            { name: "Tom", age: 23 },
+            { name: "Jully", age: 19 },
+            { name: "Justin", age: 23 },
+            { name: "Austing", age: 20 },
+        ];
+        let nameList = data.map(data => data.name);
+        console.log("Name list -", nameList);
+
+        let choosen = data.filter(item => item.age > 18);
+        console.log("Choosen List -", choosen);
+
+        let choosenName = data.filter(item => item.age > 18).map((item, index) => ({ name: item.name, id: index }));
+        console.log("Choosen Name -", choosenName);
+    </script>
+</body>
+
+</html>

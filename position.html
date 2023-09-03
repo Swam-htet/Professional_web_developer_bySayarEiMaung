@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Intro</title>
+</head>
+
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam iste fugiat nam vitae, sapiente eos inventore eum!
+        Ad beatae doloremque harum officiis perspiciatis consequuntur vitae sapiente, fugit, atque molestias esse!</p>
+    <button>Click Here</button>
+
+    <script>
+        document.querySelector('button').onclick = hello;
+        function hello() {
+            let p = document.querySelector('p');
+            p.innerHTML = "Thu pyan ma chit tat pbz :)";
+            p.style.backgroundColor = "orange";
+            p.style.padding = "20px";
+            p.style.border = "2px solid black";
+        }
+
+    </script>
+
+</body>
+
+</html>

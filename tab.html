@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab</title>
+    <style>
+        * {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .tabs {
+            list-style: none;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            background-color: black;
+        }
+
+        .tab {
+            width: 100px;
+            text-align: center;
+            margin-left: 10px;
+            padding: 10px;
+            background-color: orange;
+            border-radius: 10px;
+        }
+
+        .tab:hover {
+            color: white;
+        }
+
+        .active {
+            opacity: .5;
+        }
+
+        .box {
+            width: 100%;
+
+        }
+
+        #box-2 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="tabs">
+        <li id="tab-1" class="tab">Tab One</li>
+        <li id="tab-2" class="tab">Tab Two</li>
+    </ul>
+    <div class="boxs">
+        <div class="box" id="box-1">
+            <h1>Box One</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem consequatur, labore obcaecati
+                inventore eius rerum earum vitae dignissimos natus explicabo vel possimus, excepturi quibusdam saepe
+                iste sit vero doloribus perferendis.</p>
+        </div>
+        <div class="box" id="box-2">
+            <h1>Box Two</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem, reprehenderit officiis numquam deserunt
+                molestiae debitis fuga non provident? Eum modi nostrum sunt incidunt quibusdam expedita velit earum
+                ratione doloremque maxime?</p>
+        </div>
+    </div>
+
+    <script>
+
+
+        // function one 
+        function tabOneFun() {
+            console.log("Function one");
+            document.querySelector("#box-1").style.display = "block";
+            document.querySelector("#box-2").style.display = "none";
+            document.querySelector("#tab-1").style.opacity = "1";
+            document.querySelector("#tab-2").style.opacity = "0.5";
+        }
+
+        function tabTwoFun() {
+            console.log("Function Two");
+            document.querySelector("#box-1").style.display = "none";
+            document.querySelector("#box-2").style.display = "block";
+            document.querySelector("#tab-1").style.opacity = "0.5";
+            document.querySelector("#tab-2").style.opacity = "1";
+        }
+        // tab button 
+        let tab1 = document.getElementById("tab-1")
+        tab1.addEventListener('click', tabOneFun);
+        let tab2 = document.getElementById("tab-2");
+        tab2.addEventListener('click', tabTwoFun);
+
+    </script>
+</body>
+
+</html>

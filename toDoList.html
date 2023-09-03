@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDOList</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBasic"
+                aria-controls="navbarBasic" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+    </nav>
+    <div class="container">
+
+        <h1>To DO list
+            <span class="badge bg-danger rounded-pill ms-2" id="todoCount">0</span>
+        </h1>
+
+        <!-- input -->
+        <div class="input-group m-3">
+            <input type="text" class="form-control" name="todo_input" id="todo_input">
+            <button class="btn btn-outline-primary" id="add_btn">Add
+                ToDo</button>
+
+        </div>
+
+        <div id="todo_list" class="mt-2">
+            <ul id="todo" class="list-group"></ul>
+
+        </div>
+
+        <div id="finished_todo" class="mt-2">
+            <h4>Finished todo List</h4>
+            <button class="btn btn-outline-danger" id="clear" type="button">Clear</button>
+            <ul class="list-group mt-4" id="done" style="opacity: 0.8;"></ul>
+
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+
+    // IIFE
+    (() => {
+        updateCount();
+    })();
+
+    let data = getData();
+    data.map(item => create_item(item.text, item.done))
+
+    // get data
+    function getData() {
+        return JSON.parse(localStorage.getItem('data')) || [];
+    }
+
+    // save data
+    function saveData(text) {
+        let data = getData();
+        let item = {
+            text,
+            done: false
+        }
+        data.push(item);
+        localStorage.setItem("data", JSON.stringify(data));
+
+    }
+
+    // check data
+    function checkData(text) {
+        let data = getData();
+        let check_data = data.map(item => {
+            if (item.text === text) {
+                item.done = true;
+            }
+            return item;
+        })
+        localStorage.setItem('data', JSON.stringify(check_data));
+    }
+
+    // done clear function 
+    function doneClear() {
+        let data = getData();
+        let clear_data = data.filter(item => item.done == false);
+        localStorage.setItem('data', JSON.stringify(clear_data));
+    }
+
+    // remove data
+    function removeData(text) {
+        let data = getData();
+        let update_data = data.filter(item => item.text !== text);
+        localStorage.setItem("data", JSON.stringify(update_data));
+    }
+
+    // update count
+    function updateCount() {
+        // console.log("Total list in localStorage - ", localStorage.data);
+
+        // let count = document.querySelectorAll('#todo li');
+        let count = getData().filter(item => item.done == false).length;
+        let countShow = document.querySelector("#todoCount");
+        countShow.textContent = count;
+    }
+
+
+    // create todo item 
+    function create_item(text, done) {
+
+        // li element 
+        let li = document.createElement('li');
+        li.classList.add('list-group-item', "align-item-center");
+
+        let content = document.createElement('span');
+        content.textContent = text;
+
+        // check btn 
+        let check = document.createElement('input');
+        check.setAttribute("type", 'checkbox');
+        check.classList.add("form-check-input", 'float-left', "me-2");
+        check.onchange = function () {
+            document.querySelector('#done').appendChild(li);
+            check.remove();
+            checkData(text);
+            updateCount();
+        };
+
+        // delete btn 
+        let del = document.createElement('a');
+        del.setAttribute('href', "#");
+        del.setAttribute('class', "btn btn-outline-danger");
+        del.innerHTML = "<span>&times;</span>";
+        del.style.float = "right";
+        del.style.marginLeft = "20px";
+        del.onclick = () => {
+            li.remove();
+            removeData(text);
+            updateCount();
+
+        }
+
+        // append content to li 
+        li.appendChild(content);
+
+        // append check to li 
+        if (!done) {
+            li.insertBefore(check, li.children[0]);
+        }
+
+        // append del btn to li
+        li.appendChild(del);
+
+
+        if (done) {
+            // append li to the done list 
+            document.querySelector('#done').appendChild(li);
+        }
+        else {
+            // append li to the todo list 
+            document.querySelector('#todo').appendChild(li);
+        }
+
+
+
+    }
+
+    // clear finished todo
+    function clearFinishedTodo() {
+        let finished_list = document.querySelector("#done");
+        finished_list.textContent = "";
+        doneClear();
+
+    }
+
+    // bind clear function to clear button
+    let clearBtn = document.querySelector("#clear");
+    clearBtn.addEventListener("click", clearFinishedTodo);
+
+
+    // add todo item handler 
+    let addTodoItem = () => {
+        let text = document.querySelector("input").value;
+        if (text === "") {
+            return false;
+        }
+        create_item(text);
+        document.querySelector("input").value = "";
+        document.querySelector("input").focus();
+        saveData(text);
+        updateCount();
+    };
+
+
+    // add btn and bind handler function 
+    let addBtn = document.querySelector("#add_btn");
+    addBtn.addEventListener("click", addTodoItem);
+
+    // input key down handler 
+    document.querySelector("input").onkeydown = function (e) {
+        if (e.key == "Enter") {
+            addTodoItem();
+        }
+    }
+
+
+</script>
+
+</html>
